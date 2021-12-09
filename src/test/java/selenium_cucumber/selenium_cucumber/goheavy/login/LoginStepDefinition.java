@@ -49,6 +49,31 @@ public class LoginStepDefinition {
 		view.checkPage();
 
 	}
+	//Scenario #2
+	@When("At least one mandatory data {string} or {string} is not inserted")
+	public void at_least_one_mandatory_data_is_not_inserted(String email, String password) {
+		try {
+			loginStep.user_insert_email_and_password(email,password);
+		} catch (Exception e) {}
+	}
 
+	@Then("The system displays an error messages below each field indicating they are mandatory: {string}")
+	public void the_system_displays_an_error_messages_below_each_field_indicating_they_are_mandatory(String message) {
+		try {
+			loginStep.error_message(message);
+		} catch (Exception e) {}
+	}
 
+	//Scenario #3
+	@When("Inserts an {string} or {string} that is not registered in the system As customer OR does not match")
+	public void inserts_an_email_or_pass_that_is_not_registered_in_the_system_As_customer_OR_does_not_match(String email, String password){
+		loginStep.user_insert_email_and_password(email,password);
+	}
+
+	@Then("The system displays an error messages in a popup window in the upper right side of the view: {string}")
+	public void the_system_displays_an_error_messages_in_a_popup_window_in_the_upper_right_side_of_the_view_message(String message){
+		try {
+			loginStep.invalid_data(message);
+		} catch (Exception e) {}
+	}
 }

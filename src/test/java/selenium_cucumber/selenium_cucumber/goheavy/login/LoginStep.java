@@ -2,11 +2,8 @@ package selenium_cucumber.selenium_cucumber.goheavy.login;
 
 import static org.junit.Assert.fail;
 
-import java.util.NoSuchElementException;
-
 import org.junit.Assert;
 
-import selenium_cucumber.selenium_cucumber.general.Setup;
 import selenium_cucumber.selenium_cucumber.goheavy.login.page.LoginPage;
 
 public class LoginStep {
@@ -52,11 +49,18 @@ public class LoginStep {
 
 	public void the_system_allows_the_user_access_to_the_system() {
 		try {
-			loginPage.waitForElelemtDisappear();
+			loginPage.waitForElementDisappear();
 		} catch (Exception e) {
 			fail(" The login view did not dissapear.");
 		}
 
 	}
 
+	public void error_message(String message) {
+		Assert.assertTrue(loginPage.getErrormessage(message));
+	}
+
+	public void invalid_data(String message) {
+		Assert.assertTrue(loginPage.getInvalidDataError(message));
+	}
 }

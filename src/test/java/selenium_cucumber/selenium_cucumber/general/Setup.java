@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -22,7 +23,7 @@ import org.openqa.selenium.interactions.Actions;
 
 public final class Setup {
     private static WebDriver driver;
-    private static HashMap<String, Object> store = new HashMap();
+    private static HashMap<String, Object> store = new HashMap<>();
     private static JavascriptExecutor jsExecutor;
     private static Actions actions;
     private static WaitingObject waitingObject;
@@ -34,7 +35,7 @@ public final class Setup {
         System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER"));
         ChromeOptions options = new ChromeOptions();
 
-        Map<String, Object> timeouts = new HashMap();
+        Map<String, Object> timeouts = new HashMap<>();
         timeouts.put("implicit", 50);
         timeouts.put("pageLoad", 5000000);
         timeouts.put("script", 300000);
@@ -108,9 +109,7 @@ public final class Setup {
         Properties pop = new Properties();
         try {
             pop.load(input);
-        } catch (java.io.IOException e) {
-
-        }
+        } catch (java.io.IOException e) {}
         setKeyValueStore("defaultProperties", pop);
 
         setKeyValueStore("avatar", new File(ClassLoader.class.getResource("/avatar.png").getFile()).getAbsolutePath());

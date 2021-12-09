@@ -23,8 +23,8 @@ public class PageObject {
 	}
 
 	public void openURL() {
-		String urll = ((Properties) Setup.getValueStore("defaultProperties")).getProperty("default.URL");
-		Setup.openUrl(urll.concat("/").concat(urlpath));
+		String url = ((Properties) Setup.getValueStore("defaultProperties")).getProperty("default.URL");
+		Setup.openUrl(url.concat("/").concat(urlpath));
 	}
 
 	protected WebElement getWebElement(By by) {
@@ -38,7 +38,6 @@ public class PageObject {
 	protected void cliksOnButton(By by) {
 		getWebElement(by).click();
 		Setup.getWait().waitForLoading(10000);
-		;
 	}
 
 	public String getCurrentUrl() {
@@ -81,17 +80,40 @@ public class PageObject {
 	public HashMap<String, WebElement> getMenu(By by) {
 		waitForSpinningElementDissapear();
 		Setup.getWait().thread(4000);
-		HashMap<String, WebElement> list = new HashMap<String, WebElement>();
+		HashMap<String, WebElement> list = new HashMap<>();
 
 		if (!Objects.isNull(by)) {
 			WebElement e = this.getWebElement(by);
 
 			WebElement el2 = e.findElement(By.xpath("span[2]"));
 			list.put(el2.getText(), e);
-		} else {
-			// return an array of all Menu value
 		}
+//		else {
+//			 return an array of all Menu value
+//		}
 		return list;
 	}
 
+	public void sendAction(WebElement element, String value, actions action) {
+		Setup.getActions().moveToElement(element).build().perform();
+
+		switch (action) {
+			case type:
+				Setup.getActions().sendKeys(element, value).build().perform();
+				break;
+			case click:
+				Setup.getActions().click(element).build().perform();
+				break;
+			default:
+				print("There is not need to apply any action");
+				break;
+		}
+	}
+
+	public void print(Object message) {
+		System.out.println(message);
+	}
+	public boolean stringIsEmpty(String value) {
+		return value.trim().length() == 0;
+	}
 }
